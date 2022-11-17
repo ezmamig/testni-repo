@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  service1-hashing:
+    container_name: service1-hashing
+    image: ezmamig/service1-hashing
+    build: ./service1-hashing
+    working_dir: /app
+    entrypoint: /bin/sh
+    stdin_open: true
+    tty: true
+    volumes:
+    - ./service1-hashing/:/app
+    ports:
+      - 5001:5000
+  service2-web-page:
+    container_name: service2-web-page
+    image: ezmamig/service2-web-page
+    build: ./service2-web-page
+    working_dir: /app
+    entrypoint: /bin/sh
+    stdin_open: true
+    tty: true
+    volumes:
+    - ./service2-web-page/:/app
+    ports:
+      - 5000:5000
