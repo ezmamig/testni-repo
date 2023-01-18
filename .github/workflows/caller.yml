@@ -5,7 +5,7 @@ on:
 
 jobs:
   call-workflow-2-in-local-repo:
-    uses: ezmamig/avl_tehnicki_zadatak/.github/workflows/learn-github-actions.yml
+    uses: ezmamig/avl_tehnicki_zadatak/.github/workflows/learn-github-actions.yml@master
     with:
       config-path: DemoConfig
     secrets:
