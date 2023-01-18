@@ -1,0 +1,12 @@
+name: caller-workflow
+run-name: ${{ github.actor }} is learning GitHub Actions - caller
+on:
+  workflow_dispatch:
+
+jobs:
+  call-workflow-2-in-local-repo:
+    uses: ezmamig/avl_tehnicki_zadatak/.github/workflows/learn-github-actions.yml
+    with:
+      config-path: DemoConfig
+    secrets:
+      envPAT: envPath
