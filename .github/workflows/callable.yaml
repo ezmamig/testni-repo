@@ -40,6 +40,8 @@ jobs:
         tptFiles: ${{ fromJson(needs.generateMatrix.outputs.matrix).tptFiles }}
     needs: [generateMatrix]
     steps:
+      - name: Debug matrix functionality
+        uses: actions/checkout@v1
       - name: Run Tpt Action
         uses: ezmamig/avl_tehnicki_zadatak/run-tpt-action@master
         with:
