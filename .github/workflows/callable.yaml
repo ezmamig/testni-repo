@@ -11,9 +11,26 @@ on:
         required: true
 env:
   tpt_file_name:  ${{ inputs.tpt_file_name }}
-  tpt_file_path: "${{ github.workspace }}\\tests\\Tpt\\"
+  tpt_file_path: "${{ github.workspace }}\\tptConfig\\"
 
 jobs:
+  generateMatrix:
+    name: Generate matrix
+    runs-on: windows-latest
+    outputs:
+      matrix: ${{ steps.set-up-matrix.outputs.matrix }}
+    steps:
+      - name: check out source
+        uses: actions/checkout@v1
+      - name: Set up matrix
+        id: set-up-matrix
+        run: |
+          ls ${{ env.tpt_file_path }}
+          $matrix = (cat ${{ env.tpt_file_path }}${{ env.tpt_file_name }})
+          echo "[Info] Matrix JSON:"
+          echo $matrix
+          echo "::set-output name=matrix::$matrix"
+        shell: powershell
   check-bats-version:
     runs-on: windows-latest
     steps:
