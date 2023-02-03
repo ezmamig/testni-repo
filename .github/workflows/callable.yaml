@@ -33,14 +33,20 @@ jobs:
         shell: powershell
   check-bats-version:
     runs-on: windows-latest
+    strategy:
+      max-parallel: 2
+      fail-fast: false
+      matrix: 
+        tptFiles: ${{ fromJson(needs.generateMatrix.outputs.matrix).tptFiles }}
+    needs: [generateMatrix]
     steps:
       - name: Run Tpt Action
         uses: ezmamig/avl_tehnicki_zadatak/run-tpt-action@master
         with:
-            tptFileName: ${{ env.tpt_file_name }}
+            tptFileName: ${{ matrix.tptFiles.tptFile }}
             tptFilePath: ${{ env.tpt_file_path }}
       - name: Use TPT Test Runner with ALMConnector
         uses: ezmamig/avl_tehnicki_zadatak/run-TPT-testrunner-ALMConnector@master
         with:
-          tptFileName: ${{ env.tpt_file_name }}
+          tptFileName: ${{ matrix.tptFiles.tptFile }}
           tptFilePath: ${{ env.tpt_file_path }}
