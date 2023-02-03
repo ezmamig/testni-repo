@@ -1,5 +1,5 @@
 name: caller-workflow
-run-name: ${{ github.actor }} is learning GitHub Actions - caller
+run-name: Test environment - caller
 on:
   workflow_dispatch:
 

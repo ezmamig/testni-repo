@@ -1,5 +1,5 @@
 name: callable-workflow
-run-name: ${{ github.actor }} is learning GitHub Actions
+run-name: Test environment - callable
 on:
   workflow_call:
     inputs:
@@ -17,7 +17,13 @@ jobs:
   check-bats-version:
     runs-on: windows-latest
     steps:
-      - uses: ezmamig/avl_tehnicki_zadatak/run-tpt-action@master
+      - name: Run Tpt Action
+        uses: ezmamig/avl_tehnicki_zadatak/run-tpt-action@master
         with:
             tptFileName: ${{ env.tpt_file_name }}
             tptFilePath: ${{ env.tpt_file_path }}
+      - name: Use TPT Test Runner with ALMConnector
+        uses: ezmamig/avl_tehnicki_zadatak/run-TPT-testrunner-ALMConnector@master
+        with:
+          tptFileName: ${{ env.tpt_file_name }}
+          tptFilePath: ${{ env.tpt_file_path }}
