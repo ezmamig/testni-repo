@@ -3,12 +3,16 @@ run-name: ${{ github.actor }} is learning GitHub Actions
 on:
   workflow_call:
     inputs:
-      config-path:
+      tpt_file_name:
         required: true
         type: string
     secrets:
       envPAT:
         required: true
+env:
+  tpt_file_name:  ${{ inputs.tpt_file_name }}
+  tpt_file_path: "${{ github.workspace }}\\tests\\Tpt\\"
+
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
@@ -19,3 +23,7 @@ jobs:
           node-version: '14'
       - run: npm install -g bats
       - run: bats -v
+      - uses: avl_tehnicki_zadatak/run-tpt-action@master
+        with:
+            tptFileName: ${{ env.tpt_file_name }}
+            tptFilePath: ${{ env.tpt_file_path }}
