@@ -16,14 +16,14 @@ env:
 jobs:
   generateMatrix:
     name: Generate matrix
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-up-matrix.outputs.matrix }}
     steps:
       - name: Set up matrix
         id: set-up-matrix
         run: |
-          Write-Output "::set-output name=matrix::["a", "b"]"
+          echo "::set-output name=matrix::["a", "b"]"
         shell: powershell
   check-bats-version:
     runs-on: windows-latest
