@@ -23,26 +23,25 @@ jobs:
       - name: Set up matrix
         id: set-up-matrix
         run: |
-          Write-Output "::set-output name=matrix::$env.tpt_file_name"
+          Write-Output "::set-output name=matrix::["a", "b"]"
         shell: powershell
   check-bats-version:
     runs-on: windows-latest
+    needs: [generateMatrix]
     strategy:
-      max-parallel: 2
       fail-fast: false
       matrix: 
         tptFiles: ${{ fromJson(needs.generateMatrix.outputs.matrix) }}
-    needs: [generateMatrix]
     steps:
       - name: Debug matrix functionality
         uses: actions/checkout@v1
       - name: Run Tpt Action
         uses: ezmamig/avl_tehnicki_zadatak/run-tpt-action@master
         with:
-            tptFileName: ${{ matrix.tptFiles.tptFile }}
+            tptFileName: ${{ matrix.tptFiles }}
             tptFilePath: ${{ env.tpt_file_path }}
       - name: Use TPT Test Runner with ALMConnector
         uses: ezmamig/avl_tehnicki_zadatak/run-TPT-testrunner-ALMConnector@master
         with:
-          tptFileName: ${{ matrix.tptFiles.tptFile }}
+          tptFileName: ${{ matrix.tptFiles }}
           tptFilePath: ${{ env.tpt_file_path }}
