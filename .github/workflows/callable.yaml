@@ -20,16 +20,10 @@ jobs:
     outputs:
       matrix: ${{ steps.set-up-matrix.outputs.matrix }}
     steps:
-      - name: check out source
-        uses: actions/checkout@v1
       - name: Set up matrix
         id: set-up-matrix
         run: |
-          ls ${{ env.tpt_file_path }}
-          $matrix = (cat ${{ env.tpt_file_path }}${{ env.tpt_file_name }})
-          echo "[Info] Matrix JSON:"
-          echo $matrix
-          echo "::set-output name=matrix::$matrix"
+          Write-Output "::set-output name=matrix::$env.tpt_file_name"
         shell: powershell
   check-bats-version:
     runs-on: windows-latest
@@ -37,7 +31,7 @@ jobs:
       max-parallel: 2
       fail-fast: false
       matrix: 
-        tptFiles: ${{ fromJson(needs.generateMatrix.outputs.matrix).tptFiles }}
+        tptFiles: ${{ fromJson(needs.generateMatrix.outputs.matrix) }}
     needs: [generateMatrix]
     steps:
       - name: Debug matrix functionality
