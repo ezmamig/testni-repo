@@ -24,7 +24,6 @@ jobs:
         id: set-up-matrix
         run: |
           echo "::set-output name=matrix::["a", "b"]"
-        shell: powershell
   check-bats-version:
     runs-on: windows-latest
     needs: [generateMatrix]
