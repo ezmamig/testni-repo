@@ -23,7 +23,7 @@ jobs:
       - name: Set up matrix
         id: set-up-matrix
         run: |
-          Write-Output '::set-output name=matrix::env.tpt_file_name'
+          Write-Output "::set-output name=matrix::${{env.tpt_file_name}}"
         shell: powershell
   check-bats-version:
     runs-on: windows-latest
