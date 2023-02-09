@@ -25,8 +25,8 @@ jobs:
         run: |
           IFS=', '
           read -a tptArray <<< "${{ env.tpt_file_name }}"
-          tpt_file_name_array=$(jq -c -n '$ARGS.positional' --args "${tptArray[@]}")
-          echo "::set-output name=matrix::${{ env.tpt_file_name_array }}"
+          tpt_file_name_json=$(jq -c -n '$ARGS.positional' --args "${tptArray[@]}")
+          echo "::set-output name=matrix::$tpt_file_name_json"
         shell: bash
   check-bats-version:
     runs-on: windows-latest
