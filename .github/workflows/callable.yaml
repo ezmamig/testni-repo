@@ -24,7 +24,7 @@ jobs:
         id: set-up-matrix
         run: |
           #tptArray=$(echo $tpt_file_name | tr "," "\n")
-          IFS=','
+          IFS=', '
           read -a tptArray <<< "$tpt_file_name"
           var=$(jq -c -n '$ARGS.positional' --args "${tptArray[@]}")
           echo $var
