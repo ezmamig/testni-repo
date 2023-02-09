@@ -23,6 +23,8 @@ jobs:
       - name: Set up matrix
         id: set-up-matrix
         run: |
+          Write-Output $tpt_file_name
+          Write-Output ${{ env.tpt_file_name }}
           $tpt_file_name = $tpt_file_name.Split(",\s*")
           Write-Output $tpt_file_name
           $tpt_file_name_json = ConvertTo-Json $tpt_file_name
