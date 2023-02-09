@@ -26,7 +26,7 @@ jobs:
           $helper = "${{ env.tpt_file_name }}"
           $tpt_file_name_array = @($helper -split ',\s*' | ForEach-Object { "$_" })
           $tpt_file_name_json = ConvertTo-Json $tpt_file_name_array
-          $output_json = $tpt_file_name_json | ConvertFrom-Json
+          $output_json = $tpt_file_name_json | ConvertFrom-Json | Out-String
           Write-Output "::set-output name=matrix::$output_json"
         shell: powershell
   check-bats-version:
