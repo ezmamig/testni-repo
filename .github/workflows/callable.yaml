@@ -23,7 +23,14 @@ jobs:
       - name: Set up matrix
         id: set-up-matrix
         run: |
-          echo "::set-output name=matrix::$(echo $tpt_file_name | jq -R -s -c 'split(",")')
+          tptArray=$(echo $tpt_file_name | tr "," "\n")
+          for tptItem in $tptArray
+          do
+              ${tptItem##*()}
+              ${tptItem%%*()}
+          done
+          final = $(jq -n $tptArray)
+          echo "::set-output name=matrix::$final
         shell: bash
   check-bats-version:
     runs-on: windows-latest
