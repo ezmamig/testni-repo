@@ -26,7 +26,9 @@ jobs:
           #tptArray=$(echo $tpt_file_name | tr "," "\n")
           IFS=','
           read -a tptArray <<< "$tpt_file_name"
-          echo "::set-output name=matrix::$(jq -R -s -c < $tptArray)"
+          var = $(jq -c -n '$ARGS.positional' --args "${tptArray[@]}")
+          echo $var
+          echo "::set-output name=matrix::$var"
         shell: bash
   check-bats-version:
     runs-on: windows-latest
