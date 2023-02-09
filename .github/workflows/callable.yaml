@@ -23,11 +23,10 @@ jobs:
       - name: Set up matrix
         id: set-up-matrix
         run: |
-          IFS=', '
-          read -a tptArray <<< "${{ env.tpt_file_name }}"
-          tpt_file_name_json=$(jq -c -n '$ARGS.positional' --args "${tptArray[@]}")
-          echo "::set-output name=matrix::$tpt_file_name_json"
-        shell: bash
+          $tptArray = $tpt_file_name -split ',\s*' | ForEach-Object { "[$_]" }
+          tpt_file_name_json = ConvertTo-Json $tptArray
+          Write-Output "::set-output name=matrix::$tpt_file_name_json"
+        shell: powershell
   check-bats-version:
     runs-on: windows-latest
     needs: [generateMatrix]
