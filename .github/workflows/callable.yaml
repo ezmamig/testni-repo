@@ -23,7 +23,9 @@ jobs:
       - name: Set up matrix
         id: set-up-matrix
         run: |
-          Write-Output "::set-output name=matrix::${{env.tpt_file_name}}"
+          $tptFilesArray = ${{env.tpt_file_name}}.Split(",")
+          $tptFilesJson = $tptFilesArray | ConvertTo-Json -AsArray
+          Write-Output "::set-output name=matrix::$tptFilesJson"
         shell: powershell
   check-bats-version:
     runs-on: windows-latest
