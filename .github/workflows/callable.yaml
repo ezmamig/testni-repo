@@ -23,7 +23,7 @@ jobs:
       - name: Set up matrix
         id: set-up-matrix
         run: |
-          $helper = ${{ env.tpt_file_name }}
+          $helper = "${{ env.tpt_file_name }}"
           $tpt_file_name_array = @($helper -split ',\s*' | ForEach-Object { "$_" })
           $tpt_file_name_json = ConvertTo-Json $tpt_file_name_array
           Write-Output "::set-output name=matrix::$tpt_file_name_json"
