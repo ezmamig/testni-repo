@@ -28,8 +28,8 @@ jobs:
           read -a tptArray <<< "$tpt_file_name"
           for tptItem in $tptArray
           do
-              ${tptItem##*()}
-              ${tptItem%%*()}
+            ${tptItem} = ${tptItem##*()}
+            ${tptItem} = ${tptItem%%*()}
           done
           final = $(jq -n $tptArray)
           echo "::set-output name=matrix::$final
