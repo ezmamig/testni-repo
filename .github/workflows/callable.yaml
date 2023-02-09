@@ -23,7 +23,7 @@ jobs:
       - name: Set up matrix
         id: set-up-matrix
         run: |
-          $tptArray = $tpt_file_name -split ',\s*' | ForEach-Object { "[$_]" }
+          $tptArray = @($tpt_file_name -split ',\s*' | ForEach-Object { "[$_]" })
           Write-Output $tptArray
           $tpt_file_name_json = ConvertTo-Json $tptArray
           Write-Output $tpt_file_name_json
