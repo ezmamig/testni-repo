@@ -23,7 +23,7 @@ jobs:
       - name: Set up matrix
         id: set-up-matrix
         run: |
-          echo "::set-output name=matrix::$(echo $tpt_file_name" | jq -R -s -c 'split(",")'
+          echo "::set-output name=matrix::$(echo $tpt_file_name" | jq -R -s -c 'split(",")')
         shell: bash
   check-bats-version:
     runs-on: windows-latest
