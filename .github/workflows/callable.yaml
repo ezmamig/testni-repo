@@ -24,7 +24,9 @@ jobs:
         id: set-up-matrix
         run: |
           $tptArray = $tpt_file_name -split ',\s*' | ForEach-Object { "[$_]" }
+          Write-Output $tptArray
           $tpt_file_name_json = ConvertTo-Json $tptArray
+          Write-Output $tpt_file_name_json
           Write-Output "::set-output name=matrix::$tpt_file_name_json"
         shell: powershell
   check-bats-version:
