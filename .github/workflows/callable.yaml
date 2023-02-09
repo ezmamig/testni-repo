@@ -23,10 +23,8 @@ jobs:
       - name: Set up matrix
         id: set-up-matrix
         run: |
-          $tptFilesArray = ${{env.tpt_file_name}}.Split(",")
-          $tptFilesJson = $tptFilesArray | ConvertTo-Json -AsArray
-          Write-Output "::set-output name=matrix::$tptFilesJson"
-        shell: powershell
+          echo "::set-output name=matrix::$(echo $tpt_file_name" | jq -R -s -c 'split(",")'
+        shell: bash
   check-bats-version:
     runs-on: windows-latest
     needs: [generateMatrix]
