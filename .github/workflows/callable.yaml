@@ -23,10 +23,9 @@ jobs:
       - name: Set up matrix
         id: set-up-matrix
         run: |
-          Write-Output ${{ env.tpt_file_name }}
-          $tptArray = @(${{ env.tpt_file_name }} -split ',\s*' | ForEach-Object { "[$_]" })
-          Write-Output $tptArray
-          $tpt_file_name_json = ConvertTo-Json $tptArray
+          $tpt_file_name = $tpt_file_name.Split(",\s*")
+          Write-Output $tpt_file_name
+          $tpt_file_name_json = ConvertTo-Json $tpt_file_name
           Write-Output $tpt_file_name_json
           Write-Output "::set-output name=matrix::$tpt_file_name_json"
         shell: powershell
