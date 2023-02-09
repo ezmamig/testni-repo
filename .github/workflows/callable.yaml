@@ -23,12 +23,10 @@ jobs:
       - name: Set up matrix
         id: set-up-matrix
         run: |
-          #tptArray=$(echo $tpt_file_name | tr "," "\n")
           IFS=', '
-          read -a tptArray <<< "$tpt_file_name"
-          var=$(jq -c -n '$ARGS.positional' --args "${tptArray[@]}")
-          echo $var
-          echo "::set-output name=matrix::$var"
+          read -a tptArray <<< "${{ env.tpt_file_name }}"
+          tpt_file_name_array=$(jq -c -n '$ARGS.positional' --args "${tptArray[@]}")
+          echo "::set-output name=matrix::${{ env.tpt_file_name_array }}"
         shell: bash
   check-bats-version:
     runs-on: windows-latest
