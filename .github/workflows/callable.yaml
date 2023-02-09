@@ -23,7 +23,9 @@ jobs:
       - name: Set up matrix
         id: set-up-matrix
         run: |
-          tptArray=$(echo $tpt_file_name | tr "," "\n")
+          #tptArray=$(echo $tpt_file_name | tr "," "\n")
+          IFS=','
+          read -a tptArray <<< "$tpt_file_name"
           for tptItem in $tptArray
           do
               ${tptItem##*()}
