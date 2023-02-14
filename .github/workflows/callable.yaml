@@ -28,6 +28,14 @@ jobs:
         shell: powershell
     outputs:
       matrix: ${{ steps.set-up-matrix.outputs.matrix }}
+  testJob:
+    name: Test job
+    runs-on: windows-latest
+    steps:
+      - name: Test job
+        run: |
+          echo "${{ needs.generateMatrix.set-up-matrix.outputs.matrix }}"
+        shell: powershell
   check-bats-version:
     runs-on: windows-latest
     needs: [generateMatrix]
