@@ -17,8 +17,6 @@ jobs:
   generateMatrix:
     name: Generate matrix
     runs-on: windows-latest
-    outputs:
-      matrix: ${{ steps.set-up-matrix.outputs.matrix }}
     steps:
       - name: Set up matrix
         id: set-up-matrix
@@ -34,7 +32,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        tptFiles: ${{ fromJson(env.matrix) }}
+        tptFiles: ${{ fromJson(needs.generateMatrix.set-up-matrix.outputs.matrix) }}
     steps:
       - name: Debug matrix functionality
         uses: actions/checkout@v1
