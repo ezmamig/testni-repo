@@ -25,8 +25,9 @@ jobs:
           $tpt_file_name_array = @($helper -split ',\s*' | ForEach-Object { "$_" })
           $tpt_file_name_json = $tpt_file_name_array | ConvertTo-Json -Compress -Depth 100 | Out-String
           Write-Output "matrix=$tpt_file_name_json" >> $env:GITHUB_ENV
+          echo "matrix=$tpt_file_name_json" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
           $env:matrix = $tpt_file_name_json
-          Get-Variable
+          dir env:
         shell: powershell
     outputs:
       matrix: ${{ steps.set-up-matrix.outputs.matrix }}
