@@ -26,7 +26,7 @@ jobs:
           $helper = "${{ env.tpt_file_name }}"
           $tpt_file_name_array = @($helper -split ',\s*' | ForEach-Object { "$_" })
           $tpt_file_name_json = $tpt_file_name_array | ConvertTo-Json -Compress -Depth 100 | Out-String
-          Write-Output "::set-output name=matrix::$tpt_file_name_json"
+          Write-Output "matrix=$tpt_file_name_json" >> $GITHUB_OUTPUT
         shell: powershell
   check-bats-version:
     runs-on: windows-latest
