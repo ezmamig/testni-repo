@@ -25,6 +25,7 @@ jobs:
           $tpt_file_name_array = @($helper -split ',\s*' | ForEach-Object { "$_" })
           $tpt_file_name_json = $tpt_file_name_array | ConvertTo-Json -Compress -Depth 100 | Out-String
           echo "matrix=$tpt_file_name_json" | Out-File -FilePath $Env:GITHUB_ENV -Append
+          "matrix2=$tpt_file_name_json" >> $env:GITHUB_OUTPUT
           dir env:
         shell: powershell
       - name: Use env
@@ -33,7 +34,7 @@ jobs:
           dir env:
         shell: powershell
     outputs:
-      matrix: ${{ steps.set-up-matrix.outputs.matrix }}
+      matrix2: ${{ steps.set-up-matrix.outputs.matrix2 }}
   testJob:
     name: Test job
     runs-on: windows-latest
@@ -41,7 +42,7 @@ jobs:
     steps:
       - name: Test job
         run: |
-          echo "${{ needs.generateMatrix.outputs.matrix }}"
+          echo "${{ needs.generateMatrix.outputs.matrix2 }}"
           dir env:
         shell: powershell
   check-bats-version:
