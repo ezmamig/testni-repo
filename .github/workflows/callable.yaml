@@ -31,6 +31,7 @@ jobs:
   testJob:
     name: Test job
     runs-on: windows-latest
+    needs: [generateMatrix]
     steps:
       - name: Test job
         run: |
