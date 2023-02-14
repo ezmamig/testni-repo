@@ -34,7 +34,7 @@ jobs:
     steps:
       - name: Test job
         run: |
-          echo "${{ needs.generateMatrix.set-up-matrix.outputs.matrix }}"
+          echo "${{ needs.generateMatrix.outputs.matrix }}"
         shell: powershell
   check-bats-version:
     runs-on: windows-latest
