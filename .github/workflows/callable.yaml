@@ -26,6 +26,8 @@ jobs:
           $tpt_file_name_json = $tpt_file_name_array | ConvertTo-Json -Compress -Depth 100 | Out-String
           Write-Output "matrix=$tpt_file_name_json" >> $GITHUB_OUTPUT
         shell: powershell
+    outputs:
+      matrix: ${{ steps.set-up-matrix.outputs.matrix }}
   check-bats-version:
     runs-on: windows-latest
     needs: [generateMatrix]
