@@ -44,7 +44,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        tptFiles: ${{ fromJson(needs.generateMatrix.set-up-matrix.outputs.matrix) }}
+        tptFiles: ${{ fromJson(needs.generateMatrix.outputs.matrix) }}
     steps:
       - name: Debug matrix functionality
         uses: actions/checkout@v1
