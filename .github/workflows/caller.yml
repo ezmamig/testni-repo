@@ -7,6 +7,6 @@ jobs:
   call-workflow-2-in-local-repo:
     uses: ezmamig/testni-repo/.github/workflows/callable.yaml@master
     with:
-      tpt_file_name: "tptConfig1.json, tptConfig2.json,tptConfig3.json"
+      tpt_file_name: "tptConfig1.json"
     secrets:
       envPAT: envPath
