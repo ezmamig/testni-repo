@@ -49,6 +49,7 @@ jobs:
           $pos = ${{ matrix.tptFile }}.IndexOf(".")
           $baseName = ${{ matrix.tptFile }}.Substring(0, $pos)
           echo "::set-output name=tptFileNoExtension::$baseName"
+        shell: powershell
       - name: Use TPT Test Runner with ALMConnector
         uses: ezmamig/avl_tehnicki_zadatak/run-TPT-testrunner-ALMConnector@master
         with:
