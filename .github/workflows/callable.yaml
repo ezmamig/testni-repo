@@ -23,45 +23,35 @@ jobs:
         run: |
           $helper = "${{ env.tpt_file_name }}"
           $tpt_file_name_array = @($helper -split ',\s*' | ForEach-Object { "$_" })
+          $tpt_file_name_no_extension_array = $tpt_file_name_array | ForEach-Object { $_.Split(".")[0] }
           $tpt_file_name_json = ConvertTo-Json $tpt_file_name_array -Compress -Depth 100 | Out-String
-          echo "matrix=$tpt_file_name_json" | Out-File -FilePath $Env:GITHUB_ENV -Append
-          "matrix2=$tpt_file_name_json" >> $env:GITHUB_OUTPUT
-          dir env:
-        shell: powershell
-      - name: Use env
-        run: |
-          echo "${{ env.matrix }}"
-          dir env:
+          $tpt_file_name_no_extension_json = ConvertTo-Json $tpt_file_name_no_extension_array -Compress -Depth 100 | Out-String
+          "tpt_file_name_json=$tpt_file_name_json" >> $env:GITHUB_OUTPUT
+          "tpt_file_name_no_extension_json=$tpt_file_name_no_extension_json" >> $env:GITHUB_OUTPUT
         shell: powershell
     outputs:
-      matrix2: ${{ steps.set-up-matrix.outputs.matrix2 }}
-  testJob:
-    name: Test job
-    runs-on: windows-latest
-    needs: [generateMatrix]
-    steps:
-      - name: Test job
-        run: |
-          echo "${{ needs.generateMatrix.outputs.matrix2 }}"
-          dir env:
-        shell: powershell
+      tpt_file_name: ${{ steps.set-up-matrix.outputs.tpt_file_name_json }}
+      tpt_file_name_no_extension: ${{ steps.set-up-matrix.outputs.tpt_file_name_no_extension_json }}
   check-bats-version:
     runs-on: windows-latest
     needs: [generateMatrix]
     strategy:
       fail-fast: false
       matrix: 
-        tptFiles: ${{ fromJson(needs.generateMatrix.outputs.matrix2) }}
+        tptFile: ${{ fromJson(needs.generateMatrix.outputs.tpt_file_name) }}
+        tptFileNoExtension: ${{ fromJson(needs.generateMatrix.outputs.tpt_file_name_no_extension) }}
     steps:
       - name: Debug matrix functionality
         uses: actions/checkout@v1
       - name: Run Tpt Action
         uses: ezmamig/avl_tehnicki_zadatak/run-tpt-action@master
         with:
-            tptFileName: ${{ matrix.tptFiles }}
+            tptFileName: ${{ matrix.tptFile }}
+            tptFileNoExtension: ${{ matrix.tptFileNoExtension }}
             tptFilePath: ${{ env.tpt_file_path }}
       - name: Use TPT Test Runner with ALMConnector
         uses: ezmamig/avl_tehnicki_zadatak/run-TPT-testrunner-ALMConnector@master
         with:
-          tptFileName: ${{ matrix.tptFiles }}
+          tptFileName: ${{ matrix.tptFile }}
+          tptFileNoExtension: ${{ matrix.tptFileNoExtension }}
           tptFilePath: ${{ env.tpt_file_path }}
