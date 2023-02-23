@@ -46,8 +46,8 @@ jobs:
       - name: Remove extension from tpt file
         id: remove-extension
         run: |
-          $pos = ${{ matrix.tptFile }}.IndexOf(".")
-          $baseName = ${{ matrix.tptFile }}.Substring(0, $pos)
+          $pos = "${{ matrix.tptFile }}".IndexOf(".")
+          $baseName = "${{ matrix.tptFile }}".Substring(0, $pos)
           echo "::set-output name=tptFileNoExtension::$baseName"
         shell: powershell
       - name: Use TPT Test Runner with ALMConnector
