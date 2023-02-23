@@ -23,7 +23,7 @@ jobs:
         run: |
           $helper = "${{ env.tpt_file_name }}"
           $tpt_file_name_array = @($helper -split ',\s*' | ForEach-Object { "$_" })
-          $tpt_file_name_no_extension_array = $tpt_file_name_array | ForEach-Object { $_.Split(".")[0] }
+          $tpt_file_name_no_extension_array = @($tpt_file_name_array | ForEach-Object { $_.Split(".")[0] })
           $tpt_file_name_json = ConvertTo-Json $tpt_file_name_array -Compress -Depth 100 | Out-String
           $tpt_file_name_no_extension_json = ConvertTo-Json $tpt_file_name_no_extension_array -Compress -Depth 100 | Out-String
           "tpt_file_name_json=$tpt_file_name_json" >> $env:GITHUB_OUTPUT
