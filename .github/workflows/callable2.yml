@@ -1,0 +1,24 @@
+name: callable-workflow
+run-name: Test environment - callable
+on:
+  workflow_call:
+    inputs:
+      tpt_file_name:
+        required: true
+        type: string
+    secrets:
+      envPAT:
+        required: true
+env:
+  tpt_file_name:  ${{ inputs.tpt_file_name }}
+  tpt_file_path: "${{ github.workspace }}\\tptConfig\\"
+
+jobs:
+  example_matrix:
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: [testLabel, ${{ matrix.os }}]
+    steps:
+      - name: Debug matrix functionality
+        uses: actions/checkout@v1
