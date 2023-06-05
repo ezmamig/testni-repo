@@ -15,10 +15,7 @@ env:
 
 jobs:
   example_matrix:
-    strategy:
-      matrix:
-        os: [windows-latest, ubuntu-latest]
-    runs-on: [testLabel, ${{ matrix.os }}]
+    runs-on: [ubuntu-latest]
     steps:
       - name: Debug matrix functionality
         uses: actions/checkout@v1
