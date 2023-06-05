@@ -1,7 +1,10 @@
 name: caller-workflow
 run-name: Test environment - caller
-#on:
-#  workflow_dispatch:
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   call-workflow-2-in-local-repo:
