@@ -27,3 +27,4 @@ jobs:
         run: |
           if [[ "${{ inputs.target }}" == "prod" ]]; then
             exit 1
+        shell: bash
