@@ -10,7 +10,7 @@ jobs:
   call-workflow-2-in-local-repo:
     strategy:
       matrix:
-        target: [dev, stage, prod]
+        target: ["dev", "stage", "prod"]
     uses: ezmamig/testni-repo/.github/workflows/callable2.yml@master
     with:
       tpt_file_name: "tptConfig1.json, tptConfig2.json"

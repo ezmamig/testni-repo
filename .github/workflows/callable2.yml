@@ -25,5 +25,5 @@ jobs:
 
       - name: Fail prod case
         run: |
-          if [[ ${{ inputs.target }} == "prod" ]]; then
+          if [[ "${{ inputs.target }}" == "prod" ]]; then
             exit 1
