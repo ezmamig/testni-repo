@@ -6,6 +6,9 @@ on:
       tpt_file_name:
         required: true
         type: string
+      target:
+        required: false
+        type: string
     secrets:
       envPAT:
         required: true
