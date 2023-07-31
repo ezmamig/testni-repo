@@ -25,5 +25,5 @@ jobs:
 
       - name: Fail prod case
         run: |
-          if [[ ${{ inputs.tpt_file_name }} == "prod" ]]; then
+          if [[ ${{ inputs.target }} == "prod" ]]; then
             exit 1
