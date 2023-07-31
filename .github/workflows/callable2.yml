@@ -22,3 +22,8 @@ jobs:
     steps:
       - name: Debug matrix functionality
         uses: actions/checkout@v1
+
+      - name: Fail prod case
+        run: |
+          if [[ ${{ inputs.tpt_file_name }} == "prod" ]]; then
+            exit 1
