@@ -1,6 +1,6 @@
 {
     "ToolName": "dSPACE TargetLink 5.2.1",
-    "SupportedOS": ["Windows 10"],
+    "SupportedOS": ["Windows 10","Windows 22"],
     "Installer": "TargetLink\\SetupCmd.exe",
     "ArgumentList": "--install --load %ToolPackageDir%\\install.ini --ignorependingreboot --noreboot --nogui --verbose --logfolder %LogDir%",
     "RequiredPackages": [ "Microsoft/NET_Framework_ALL_4.8_20190731b.H-SPZ3" ],

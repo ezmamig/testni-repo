@@ -8,7 +8,13 @@ on:
 
 jobs:
   checkoutRepo:
+
     runs-on: [windows-latest]
+
+    ##### Define the job outputs #####
+    outputs:
+      supported_os: ${{ steps.read-supportedos.outputs.supported_os }}
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v1
@@ -16,14 +22,17 @@ jobs:
       - name: Read SupportedOS from JSON
         id: read-supportedos
         run: |
-          ls ${{ github.workspace }}
-          echo ${{ github.workspace }}
+          $file_path="${{ github.workspace }}/tptConfig/installCFG.json"
+          $script_path="${{ github.workspace }}/Scripts/getSupportedOS.ps1"
+          $supportedos = powershell -File $script_path -installCFGJsonFilePath $file_path
+          echo $supportedos
+          echo "supported_os=$supportedos" >> $env:GITHUB_OUTPUT
         shell: powershell
 
   call-workflow-2-in-local-repo:
     strategy:
       matrix:
-        target: ["dev", "stage", "prod"]
+        target: ${{ fromJson(needs.checkoutRepo.outputs.supported_os) }}
     uses: ezmamig/testni-repo/.github/workflows/callable2.yml@master
     with:
       tpt_file_name: "tptConfig1.json, tptConfig2.json"
