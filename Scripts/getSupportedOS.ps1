@@ -10,7 +10,8 @@ echo $jsonObject
 
 # Obtain the value for the key "SupportedOS"
 $supportedOs = $jsonObject.SupportedOS -join ', '
-$supportedOsJson = ConvertTo-Json $supportedOs -Compress -Depth 100 | Out-String
+$supportedOsArray = @($supportedOs -split ',\s*' | ForEach-Object { "$_" })
+$supportedOsJson = ConvertTo-Json $supportedOsArray -Compress -Depth 100 | Out-String
 echo $supportedOsJson
 
 Write-Output $supportedOsJson
