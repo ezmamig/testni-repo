@@ -44,7 +44,7 @@ jobs:
     uses: ezmamig/testni-repo/.github/workflows/callable2.yml@master
     with:
       tpt_file_name: "tptConfig1.json, tptConfig2.json"
-      target: "self-hosted, dev, ${{ matrix.target }}"
+      target: "${{ matrix.target }}"
     secrets:
       envPAT: envPath
 
