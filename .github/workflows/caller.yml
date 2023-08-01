@@ -30,6 +30,7 @@ jobs:
         shell: powershell
 
   call-workflow-2-in-local-repo:
+    needs: [checkoutRepo]
     strategy:
       matrix:
         target: ${{ fromJson(needs.checkoutRepo.outputs.supported_os) }}
