@@ -22,11 +22,16 @@ jobs:
       - name: Read SupportedOS from JSON
         id: read-supportedos
         run: |
-          $file_path="${{ github.workspace }}/tptConfig/installCFG.json"
-          $script_path="${{ github.workspace }}/Scripts/getSupportedOS.ps1"
-          $supportedos = powershell -File $script_path -installCFGJsonFilePath $file_path
-          echo $supportedos
-          echo "supported_os=$supportedos" >> $env:GITHUB_OUTPUT
+          $jsonContent = Get-Content -Path $file_path -Raw
+          $jsonObject = ConvertFrom-Json -InputObject $jsonContent
+
+          # Obtain the value for the key "SupportedOS"
+          $supportedOs = $jsonObject.SupportedOS -join ', '
+          $supportedOsArray = @($supportedOs -split ',\s*' | ForEach-Object { "$_" })
+          $supportedOsJson = ConvertTo-Json $supportedOsArray -Compress -Depth 100 | Out-String
+          echo $supportedOsJson
+          
+          echo "supported_os=$supportedOsJson" >> $env:GITHUB_OUTPUT
         shell: powershell
 
   call-workflow-2-in-local-repo:
