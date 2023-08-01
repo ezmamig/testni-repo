@@ -25,7 +25,7 @@ jobs:
 
       - name: Fail prod case
         run: |
-          if [[ "${{ inputs.target }}" == "prod" ]]; then
+          if [[ "${{ inputs.target }}" == "Windows 10" ]]; then
             exit 1
           fi
 
