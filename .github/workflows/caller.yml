@@ -7,6 +7,19 @@ on:
   workflow_dispatch:
 
 jobs:
+  checkoutRepo:
+    runs-on: [windows-latest]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v1
+
+      - name: Read SupportedOS from JSON
+        id: read-supportedos
+        run: |
+          ls ${{ github.workspace }}
+          echo ${{ github.workspace }}
+        shell: powershell
+
   call-workflow-2-in-local-repo:
     strategy:
       matrix:
