@@ -22,6 +22,8 @@ jobs:
       - name: Read SupportedOS from JSON
         id: read-supportedos
         run: |
+          $file_path="${{ github.workspace }}/tptConfig/installCFG.json"
+          
           $jsonContent = Get-Content -Path $file_path -Raw
           $jsonObject = ConvertFrom-Json -InputObject $jsonContent
 
