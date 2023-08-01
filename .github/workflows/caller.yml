@@ -23,7 +23,7 @@ jobs:
         id: read-supportedos
         run: |
           $file_path="${{ github.workspace }}/tptConfig/installCFG.json"
-          
+
           $jsonContent = Get-Content -Path $file_path -Raw
           $jsonObject = ConvertFrom-Json -InputObject $jsonContent
 
@@ -44,7 +44,7 @@ jobs:
     uses: ezmamig/testni-repo/.github/workflows/callable2.yml@master
     with:
       tpt_file_name: "tptConfig1.json, tptConfig2.json"
-      target: ${{ matrix.target }}
+      target: "self-hosted, dev, ${{ matrix.target }}"
     secrets:
       envPAT: envPath
 
