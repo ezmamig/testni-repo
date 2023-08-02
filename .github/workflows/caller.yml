@@ -50,7 +50,7 @@ jobs:
       - name: setRunnerLabels
         id: set-labels
         run: |
-          $runnerLabels = ${{ needs.checkoutRepo.outputs.supported_os }}
+          $runnerLabels = "${{ needs.checkoutRepo.outputs.supported_os }}"
           
           $runnerLabels = $runnerLabels.replace('Windows 10', 'Win10')
           $runnerLabels = $runnerLabels.replace('Windows 19', 'Win19')
