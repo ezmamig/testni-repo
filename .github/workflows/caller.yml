@@ -55,7 +55,10 @@ jobs:
 
   tempJob:
     needs: [call-workflow-2-in-local-repo]
-    runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        target: ${{ fromJson(needs.checkoutRepo.outputs.supported_os) }}
+    runs-on: [ubuntu-latest, ${{ matrix.target }}]
     steps:
       - name: Debug matrix functionality
         run: echo "tempJob output"
