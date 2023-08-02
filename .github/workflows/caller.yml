@@ -58,7 +58,7 @@ jobs:
     strategy:
       matrix:
         target: ${{ fromJson(needs.checkoutRepo.outputs.supported_os) }}
-    runs-on: [ubuntu-latest, ${{ matrix.target }}]
+    runs-on: [ubuntu-latest]
     steps:
       - name: Debug matrix functionality
         run: echo "tempJob output"
