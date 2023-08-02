@@ -29,6 +29,11 @@ jobs:
 
           # Obtain the value for the key "SupportedOS"
           $supportedOs = $jsonObject.SupportedOS -join ', '
+
+          $supportedOs = $supportedOs.replace('Windows 10', 'Win10')
+          $supportedOs = $supportedOs.replace('Windows 19', 'Win19')
+          $supportedOs = $supportedOs.replace('Windows 22', 'Win22')
+
           $supportedOsArray = @($supportedOs -split ',\s*' | ForEach-Object { "$_" })
           $supportedOsJson = ConvertTo-Json $supportedOsArray -Compress -Depth 100 | Out-String
           echo $supportedOsJson
@@ -36,36 +41,11 @@ jobs:
           echo "supported_os=$supportedOsJson" >> $env:GITHUB_OUTPUT
         shell: powershell
 
-  setLabels:
-
-    needs: [checkoutRepo]
-    runs-on: [windows-latest]
-
-    ##### Define the job outputs #####
-    outputs:
-      supported_os: ${{ steps.set-labels.outputs.runnerLabels }}
-
-    steps:
-
-      - name: setRunnerLabels
-        id: set-labels
-        run: |
-          $runnerLabels = "${{ needs.checkoutRepo.outputs.supported_os }}"
-          
-          $runnerLabels = $runnerLabels.replace('Windows 10', 'Win10')
-          $runnerLabels = $runnerLabels.replace('Windows 19', 'Win19')
-          $runnerLabels = $runnerLabels.replace('Windows 22', 'Win22')
-
-          echo $runnerLabels
-          
-          echo "runnerLabels=$runnerLabels" >> $env:GITHUB_OUTPUT
-        shell: powershell
-
   call-workflow-2-in-local-repo:
-    needs: [setLabels]
+    needs: [checkoutRepo]
     strategy:
       matrix:
-        target: ${{ fromJson(needs.setLabels.outputs.runnerLabels) }}
+        target: ${{ fromJson(needs.checkoutRepo.outputs.supported_os) }}
     uses: ezmamig/testni-repo/.github/workflows/callable2.yml@master
     with:
       tpt_file_name: "tptConfig1.json, tptConfig2.json"
