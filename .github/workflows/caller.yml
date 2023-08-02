@@ -36,11 +36,36 @@ jobs:
           echo "supported_os=$supportedOsJson" >> $env:GITHUB_OUTPUT
         shell: powershell
 
-  call-workflow-2-in-local-repo:
+  setLabels:
+
     needs: [checkoutRepo]
+    runs-on: [windows-latest]
+
+    ##### Define the job outputs #####
+    outputs:
+      supported_os: ${{ steps.set-labels.outputs.runnerLabels }}
+
+    steps:
+
+      - name: setRunnerLabels
+        id: set-labels
+        run: |
+          $runnerLabels = ${{ fromJson(needs.checkoutRepo.outputs.supported_os) }}
+          
+          $runnerLabels = $runnerLabels.replace('Windows 10', 'Win10')
+          $runnerLabels = $runnerLabels.replace('Windows 19', 'Win19')
+          $runnerLabels = $runnerLabels.replace('Windows 22', 'Win22')
+
+          echo $runnerLabels
+          
+          echo "runnerLabels=$runnerLabels" >> $env:GITHUB_OUTPUT
+        shell: powershell
+
+  call-workflow-2-in-local-repo:
+    needs: [setLabels]
     strategy:
       matrix:
-        target: ${{ fromJson(needs.checkoutRepo.outputs.supported_os) }}
+        target: ${{ fromJson(needs.setLabels.outputs.runnerLabels) }}
     uses: ezmamig/testni-repo/.github/workflows/callable2.yml@master
     with:
       tpt_file_name: "tptConfig1.json, tptConfig2.json"
