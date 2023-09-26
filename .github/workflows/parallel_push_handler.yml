@@ -46,6 +46,6 @@ jobs:
         uses: ./testni-repo/.github/actions/parallel-push
         with:
           repo_name: "ezmamig/testni-repo"
-          workingDir: ${{ github.workspace }}\metadata
+          workingDir: ${{ github.workspace }}/metadata
       
       
