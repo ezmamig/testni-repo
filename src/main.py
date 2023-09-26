@@ -2,6 +2,7 @@ import subprocess
 import time
 import json
 import os
+import sys
 
 def retry_git_push_with_metadata(repo_name, working_dir, branch_name="master", max_retries=10, retry_delay=5):
     try:
