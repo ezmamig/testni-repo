@@ -24,4 +24,7 @@ runs:
 
     - name: Retry Git Push with Metadata
       shell: bash
-      run: python ${{ github.workspace }}/src/main.py ${{ inputs.repo_name }} ${{ inputs.workingDir }}
+      run: |
+        pwd
+        ls -la
+        python ${{ github.workspace }}/src/main.py ${{ inputs.repo_name }} ${{ inputs.workingDir }}
