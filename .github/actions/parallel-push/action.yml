@@ -31,6 +31,7 @@ runs:
     - name: Retry Git Push with Metadata
       shell: bash
       run: |
-        pwd
-        ls -la
+        git config user.email "you@example.com"
+        git config user.name "Your Name"
+
         python ${{ github.workspace }}/testni-repo/src/main.py ${{ inputs.repo_name }} ${{ inputs.workingDir }}
