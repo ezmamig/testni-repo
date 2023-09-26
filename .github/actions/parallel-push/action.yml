@@ -11,7 +11,6 @@ inputs:
 
 runs:
   using: 'composite'
-  shell: bash
   steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -24,4 +23,5 @@ runs:
         python-version: 3.8
 
     - name: Retry Git Push with Metadata
+      shell: bash
       run: python -m ${{ github.workspace }}/src/main.py ${{ inputs.repo_name }} ${{ inputs.workingDir }}
