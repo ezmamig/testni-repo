@@ -1,0 +1,26 @@
+name: Retry Push with Metadata
+description: Retry push with metadata using custom Python script
+
+inputs:
+  repo_name:
+    description: 'Repository name where metadata should be pushed'
+    required: true
+  workingDir:
+    description: 'path where metadata is stored'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        path: testni-repo
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Retry Git Push with Metadata
+      run: python -m ${{ github.workspace }}/src/main.py ${{ inputs.repo_name }} ${{ inputs.workingDir }}

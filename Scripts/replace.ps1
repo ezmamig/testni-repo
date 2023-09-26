@@ -1,7 +1,12 @@
-$InitialString = '["Windows 10", "Windows 22", "Windows 19"]'
+try {
+    # Attempt to use Copy-Item
+    Copy-Ittem -Path $UnzipDir\* -Destination $TargetDir -Recurse
+} catch {
+    Write-Host "Copy-Item failed. Using robocopy as an alternative."
+    robocopy $UnzipDir $TargetDir /E /DCOPY:DAT /R:10 /W:3 > null
+}
 
-echo $InitialString
 
-$InitialString = $InitialString.replace('Windows 10', 'Win10')
+$count = jf rt s $urlInstallerPackage --count --user=$ArtifactoryUser --password=$ArtifactoryPassword --url=https://jfrog.hub.vwgroup.com/artifactory
 
-echo "$InitialString A"
+$count = jf rt s $urlInstallerPackage --count --user=$ArtifactoryUser --password=$ArtifactoryPassword --url=https://jfrog.hub.vwgroup.com/artifactory

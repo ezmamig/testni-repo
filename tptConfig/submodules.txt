@@ -1,0 +1,11 @@
+[submodule "content/level4/clean-up-workspace"]
+	path = content/level4/clean-up-workspace
+	url = https://git.hub.vwgroup.com/cariad-actions/clean-up-workspace.git
+	branch = doc-submodule
+[submodule "content/level4/code-quality-parser"]
+	path = content/level4/code-quality-parser
+	url = https://git.hub.vwgroup.com/cariad-actions/code-quality-parser.git
+	branch = doc-submodule
+[submodule "content/level4/tools-action-leanix-client"]
+	path = content/level4/tools-action-leanix-client
+	url = https://git.hub.vwgroup.com/CARIAD/tools-action-leanix-client.git

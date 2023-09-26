@@ -1,0 +1,51 @@
+name: parallel push handler
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  push_to_metadata_repository:
+  
+    runs-on: ubuntu-latest
+    
+    steps:
+
+      - name: Checkout testni-repo
+        uses: actions/checkout@v2
+        with:
+          path: testni-repo
+
+      - name: Create metadata directory
+        run: mkdir -p ${{ github.workspace }}/metadata
+
+      - name: Create event_recipe.json
+        run: |
+          cat <<EOL > ${{ github.workspace }}/metadata/event_recipe.json
+          [
+            {
+              "source": "my_pkg_python.json",
+              "target": "metadata.json",
+              "path": "tool-pkg/Python/3.11.1/win/x64"
+            },
+            {
+              "source": "my_pkg_config_python.json",
+              "target": "metadata.json",
+              "path": "tool-pkg/Python/3.11.1/win/x64/cfg"
+            }
+          ]
+          EOL
+
+      - name: Create my_pkg_python.json
+        run: touch ${{ github.workspace }}/metadata/my_pkg_python.json
+
+      - name: Create my_pkg_config_python.json
+        run: touch ${{ github.workspace }}/metadata/my_pkg_config_python.json
+          
+      - name: Push-Metadata
+        uses: ./testni-repo/.github/actions/parallel-push
+        with:
+          repo_name: "ezmamig/testni-repo"
+          workingDir: ${{ github.workspace }}\metadata
+      
+      
