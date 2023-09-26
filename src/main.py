@@ -7,10 +7,12 @@ import sys
 def retry_git_push_with_metadata(repo_name, working_dir, branch_name="master", max_retries=10, retry_delay=5):
     try:
         # Change the working directory to the metadata directory
-        os.chdir(working_dir)
+        os.chdir(repo_name)
+        
+        event_recipe_path = os.path.join(working_dir, 'event_recipe.json')
         
         # Load the event_recipe.json file
-        with open('event_recipe.json', 'r') as recipe_file:
+        with open(event_recipe_path, 'r') as recipe_file:
             event_recipe = json.load(recipe_file)
         
         for retry in range(max_retries):
@@ -28,7 +30,7 @@ def retry_git_push_with_metadata(repo_name, working_dir, branch_name="master", m
                     os.makedirs(path, exist_ok=True)
                     
                     # Copy the source file to the target path
-                    subprocess.run(["cp", source, os.path.join(path, target)])
+                    subprocess.run(["cp", os.path.join(working_dir, source), os.path.join(path, target)])
                 
                 subprocess.run(["git", "add", "."])
                 subprocess.run(["git", "commit", "-m", "Add metadata"])

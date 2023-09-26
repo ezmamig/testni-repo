@@ -1,4 +1,4 @@
-name: Retry Push with Metadata
+name: pushHandlerAction
 description: Retry push with metadata using custom Python script
 
 inputs:
@@ -16,6 +16,12 @@ runs:
       uses: actions/checkout@v2
       with:
         path: testni-repo
+
+    - name: Download metadata-artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: metadata-artifact
+        path: ${{ github.workspace }}/metadata
 
     - name: Setup Python
       uses: actions/setup-python@v2

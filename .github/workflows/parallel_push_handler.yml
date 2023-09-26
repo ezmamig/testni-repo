@@ -1,4 +1,4 @@
-name: parallel push handler
+name: pushHandlerWorkflow
 
 on:
   workflow_dispatch:
@@ -41,11 +41,18 @@ jobs:
 
       - name: Create my_pkg_config_python.json
         run: touch ${{ github.workspace }}/metadata/my_pkg_config_python.json
+
+      - name: Upload metadata artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: metadata-artifact
+          retention-days: 1
+          path: ${{ github.workspace }}\metadata
           
       - name: Push-Metadata
         uses: ./testni-repo/.github/actions/parallel-push
         with:
-          repo_name: "ezmamig/testni-repo"
+          repo_name: "testni-repo"
           workingDir: ${{ github.workspace }}/metadata
       
       
