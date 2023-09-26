@@ -47,7 +47,7 @@ jobs:
         with:
           name: metadata-artifact
           retention-days: 1
-          path: ${{ github.workspace }}\metadata
+          path: ${{ github.workspace }}/metadata
           
       - name: Push-Metadata
         uses: ./testni-repo/.github/actions/parallel-push
