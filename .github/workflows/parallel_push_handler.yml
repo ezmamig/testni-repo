@@ -52,7 +52,7 @@ jobs:
       - name: Push-Metadata
         uses: ./testni-repo/.github/actions/parallel-push
         with:
-          repo_name: "testni-repo"
+          repo_name: "testni-repo/path"
           workingDir: ${{ github.workspace }}/metadata
       
       
