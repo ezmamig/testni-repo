@@ -2,6 +2,10 @@
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "pyProject"
+version = "1.0.0"
+
 [tool.setuptools]
 name = "pyProject"
 version = "1.0.0"
