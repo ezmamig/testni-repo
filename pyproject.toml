@@ -7,6 +7,4 @@ name = "pyProject"
 version = "1.0.0"
 
 [tool.setuptools]
-name = "pyProject"
-version = "1.0.0"
 packages = ["pyProject"]
