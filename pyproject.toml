@@ -5,6 +5,9 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "pyProject"
 version = "1.0.0"
+dependencies = [
+    "recursiveProject@git+https://github.com/ezmamig/avl_tehnicki_zadatak.git#egg=recursiveProject"
+]
 
 [tool.setuptools]
 packages = ["pyProject"]
